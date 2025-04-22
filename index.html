@@ -115,6 +115,60 @@
       object-fit: cover;
       border-radius: 10px;
     }
+
+    .lightbox {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .lightbox .close,
+    .lightbox .prev,
+    .lightbox .next {
+      position: absolute;
+      color: white;
+      font-size: 40px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .lightbox .close {
+      top: 20px;
+      right: 30px;
+    }
+
+    .lightbox .prev,
+    .lightbox .next {
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 16px;
+    }
+
+    .lightbox .prev {
+      left: 10px;
+    }
+
+    .lightbox .next {
+      right: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 
@@ -224,6 +278,13 @@
       <strong>Ligging:</strong> Slechts 45 minuten van luchthaven Alicante
     </div>
 
+    <div id="lightbox" class="lightbox hidden">
+      <span class="close">&times;</span>
+      <img class="lightbox-img" src="" alt="Lightbox">
+      <span class="prev">&#10094;</span>
+      <span class="next">&#10095;</span>
+    </div>
+
     <h2>Foto's van het verblijf</h2>
     <div class="gallery">
       <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas1.jpg">
@@ -259,5 +320,54 @@
     <p>&copy; 2025 Luxe Villa Las Colinas. Alle rechten voorbehouden.</p>
   </footer>
 </body>
+
+<script>
+  const images = document.querySelectorAll('.gallery img');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.querySelector('.lightbox-img');
+  const closeBtn = document.querySelector('.close');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+  let currentIndex = 0;
+
+  function showImage(index) {
+    lightboxImg.style.transform = 'translateX(100%)';
+    setTimeout(() => {
+      lightboxImg.src = images[index].src;
+      lightboxImg.style.transform = 'translateX(0)';
+    }, 100);
+  }
+
+  images.forEach((img, index) => {
+    img.addEventListener('click', () => {
+      currentIndex = index;
+      lightbox.classList.remove('hidden');
+      showImage(currentIndex);
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    lightbox.classList.add('hidden');
+  });
+
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  });
+
+  prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('hidden')) {
+      if (e.key === 'Escape') lightbox.classList.add('hidden');
+      if (e.key === 'ArrowRight') nextBtn.click();
+      if (e.key === 'ArrowLeft') prevBtn.click();
+    }
+  });
+</script>
+
 
 </html>
