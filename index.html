@@ -5,6 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="manifest.json">
+  <link rel="service-worker" href="service-worker.js">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
   <title>Luxe Villa Las Colinas</title>
   <style>
     body {
@@ -241,6 +246,67 @@
       font-size: 0.8rem;
       margin-top: 0.2rem;
     }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 40px 10px;
+        background-position: center center;
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+
+      section {
+        padding: 10px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        /* Stapelt de twee kolommen onder elkaar */
+      }
+
+      .calendar-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .calendar-controls button {
+        font-size: 1rem;
+        padding: 0.5rem;
+      }
+
+      .calendar-day {
+        min-height: 50px;
+        padding: 0.3rem;
+      }
+
+      .calendar-day .date {
+        font-size: 0.9rem;
+      }
+
+      .calendar-day .price {
+        font-size: 0.8rem;
+      }
+
+      .cta {
+        font-size: 16px;
+        padding: 10px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+        /* Eén afbeelding per rij */
+      }
+
+      .gallery img {
+        height: auto;
+      }
+    }
   </style>
 </head>
 
@@ -395,6 +461,17 @@
   <footer>
     <p>&copy; 2025 Luxe Villa Las Colinas. Alle rechten voorbehouden.</p>
   </footer>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => console.log('✅ Service worker geregistreerd:', reg.scope))
+          .catch(err => console.error('❌ Service worker fout:', err));
+      });
+    }
+  </script>
+
 </body>
 
 <script>
@@ -509,7 +586,7 @@
     {
       start: "2025-04-24",
       end: "2025-05-01",
-      naam: "Paul Lawrence"
+      naam: "Paul L."
     }
   ];
 
