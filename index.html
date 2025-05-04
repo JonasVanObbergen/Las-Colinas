@@ -107,6 +107,7 @@
     .gallery img {
       width: 100%;
       border-radius: 10px;
+      cursor: pointer;
     }
 
     .gallery img {
@@ -321,17 +322,50 @@
   const closeBtn = document.querySelector('.close');
   const prevBtn = document.querySelector('.prev');
   const nextBtn = document.querySelector('.next');
-  const totalImages = 31; // pas dit aantal aan als je meer/minder foto's hebt
+  const totalImages = 31; // pas dit aan als je meer/minder foto's hebt
   let images = [];
   let currentIndex = 0;
 
-  // Dynamisch afbeeldingen toevoegen
+  // Alle afbeeldingen verzamelen
   for (let i = 1; i <= totalImages; i++) {
     const img = document.createElement('img');
     img.src = `./images/Verblijf/lascolinas${i}.jpg`;
     img.alt = `Foto ${i}`;
-    gallery.appendChild(img);
     images.push(img);
+  }
+
+  const visibleCount = 9;
+  for (let i = 0; i < Math.min(visibleCount, images.length); i++) {
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'relative';
+
+    const img = images[i];
+    wrapper.appendChild(img);
+
+    // Overlay op de 9e afbeelding indien er meer foto's zijn
+    if (i === visibleCount - 1 && images.length > visibleCount) {
+      const overlay = document.createElement('div');
+      overlay.textContent = `+${images.length - visibleCount}`;
+      Object.assign(overlay.style, {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'rgba(255,255,255,0.7)',
+        color: '#000',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '32px',
+        fontWeight: 'bold',
+        borderRadius: '10px',
+        pointerEvents: 'none' // Zorgt dat klik doorgaat naar img
+      });
+      wrapper.appendChild(overlay);
+    }
+
+    gallery.appendChild(wrapper);
   }
 
   function showImage(index) {
@@ -343,8 +377,9 @@
   }
 
   gallery.addEventListener('click', (e) => {
-    if (e.target.tagName === 'IMG') {
-      currentIndex = images.indexOf(e.target);
+    const img = e.target.tagName === 'IMG' ? e.target : e.target.querySelector('img');
+    if (img) {
+      currentIndex = images.findIndex(i => i.src === img.src);
       lightbox.classList.remove('hidden');
       showImage(currentIndex);
     }
@@ -372,6 +407,7 @@
     }
   });
 </script>
+
 
 
 
