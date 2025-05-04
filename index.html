@@ -293,45 +293,13 @@
     </div>
 
     <h2>Foto's van het verblijf</h2>
-    <div class="gallery">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas1.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas2.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas3.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas4.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas5.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas6.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas7.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas8.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas9.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas10.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas11.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas12.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas13.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas14.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas15.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas16.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas17.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas18.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas19.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas20.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas21.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas22.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas23.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas24.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas25.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas26.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas27.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas28.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas29.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas30.jpg">
-      <img src="https://jonasvanobbergen.github.io/Las-Colinas//images/lascolinas31.jpg">
-    </div>
+
+    <div class="gallery" id="gallery"></div>
 
     <h2>Prijzen</h2>
     <ul>
       <li>Hoogseizoen (mei – oktober): <strong>€475 per nacht</strong></li>
       <li>Laagseizoen (november – april): <strong>€325 per nacht</strong></li>
-      <li>Optioneel verwarmd zwembad: <strong>€25,00 per dag</strong></li>
       <li>Huurwaarborg: <strong>€500,00</strong></li>
       <li><em>Verhuur vanaf minstens 4 nachten</em></li>
     </ul>
@@ -347,13 +315,24 @@
 </body>
 
 <script>
-  const images = document.querySelectorAll('.gallery img');
+  const gallery = document.getElementById('gallery');
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.querySelector('.lightbox-img');
   const closeBtn = document.querySelector('.close');
   const prevBtn = document.querySelector('.prev');
   const nextBtn = document.querySelector('.next');
+  const totalImages = 31; // pas dit aantal aan als je meer/minder foto's hebt
+  let images = [];
   let currentIndex = 0;
+
+  // Dynamisch afbeeldingen toevoegen
+  for (let i = 1; i <= totalImages; i++) {
+    const img = document.createElement('img');
+    img.src = `./images/Verblijf/lascolinas${i}.jpg`;
+    img.alt = `Foto ${i}`;
+    gallery.appendChild(img);
+    images.push(img);
+  }
 
   function showImage(index) {
     lightboxImg.style.transform = 'translateX(100%)';
@@ -363,12 +342,12 @@
     }, 100);
   }
 
-  images.forEach((img, index) => {
-    img.addEventListener('click', () => {
-      currentIndex = index;
+  gallery.addEventListener('click', (e) => {
+    if (e.target.tagName === 'IMG') {
+      currentIndex = images.indexOf(e.target);
       lightbox.classList.remove('hidden');
       showImage(currentIndex);
-    });
+    }
   });
 
   closeBtn.addEventListener('click', () => {
@@ -393,6 +372,7 @@
     }
   });
 </script>
+
 
 
 </html>
