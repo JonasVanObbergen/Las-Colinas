@@ -171,6 +171,76 @@
     .hidden {
       display: none;
     }
+
+    /*Kalender*/
+    .calendar-controls {
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+
+    .calendar-controls button {
+      background-color: #f0f0f0;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1.2rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+
+    .calendar-day-header {
+      text-align: center;
+      font-weight: bold;
+      padding: 0.5rem;
+      background-color: #f4f4f4;
+      border-radius: 0.5rem;
+    }
+
+    .calendar-day {
+      background-color: #fafafa;
+      border-radius: 0.75rem;
+      text-align: center;
+      padding: 0.5rem;
+      min-height: 60px;
+      border: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .calendar-day .date {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+
+    .calendar-day .price {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .calendar-day.empty {
+      background: transparent;
+      border: none;
+    }
+
+    .calendar-day.gereserveerd {
+      background-color: #ffd6d6;
+      border-color: #ff8a8a;
+      color: #a60000;
+    }
+
+    .calendar-day .reservering {
+      font-size: 0.8rem;
+      margin-top: 0.2rem;
+    }
   </style>
 </head>
 
@@ -311,6 +381,17 @@
     </div>
   </section>
 
+  <section>
+    <h2>Beschikbaarheid <span id="calendar-title">juli 2025</span></h2>
+    <div class="calendar-controls">
+      <button onclick="prevMonth()">←</button>
+      <button onclick="nextMonth()">→</button>
+    </div>
+    <div class="calendar-grid" id="calendar-container">
+      <!-- Inhoud wordt met JS gegenereerd -->
+    </div>
+  </section>
+
   <footer>
     <p>&copy; 2025 Luxe Villa Las Colinas. Alle rechten voorbehouden.</p>
   </footer>
@@ -409,7 +490,107 @@
   });
 </script>
 
+<script>
+  const prijzen = {
+    hoog: 475,
+    laag: 325
+  };
+  const maandNamen = [
+    "januari", "februari", "maart", "april", "mei", "juni",
+    "juli", "augustus", "september", "oktober", "november", "december"
+  ];
 
+  // 🗓️ Gereserveerde datums
+  const reservaties = [{
+      start: "2025-06-29",
+      end: "2025-07-04",
+      naam: "Jonas"
+    },
+    {
+      start: "2025-04-24",
+      end: "2025-05-01",
+      naam: "Paul Lawrence"
+    }
+  ];
 
+  const vandaag = new Date();
+  let currentMonth = vandaag.getMonth(); // huidige maand (0 = januari)
+  let currentYear = vandaag.getFullYear(); // huidig jaar
+
+  function getPrice(month) {
+    return (month >= 4 && month <= 9) ? prijzen.hoog : prijzen.laag;
+  }
+
+  function isGereserveerd(dateStr) {
+    const datum = new Date(dateStr);
+    return reservaties.find(res => {
+      const start = new Date(res.start);
+      const end = new Date(res.end);
+      return datum >= start && datum <= end;
+    });
+  }
+
+  function renderCalendar(month, year) {
+    const title = document.getElementById("calendar-title");
+    const container = document.getElementById("calendar-container");
+    const date = new Date(year, month, 1);
+    const firstDay = (date.getDay() + 6) % 7;
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const prijs = getPrice(month);
+
+    title.textContent = `${maandNamen[month]} ${year}`;
+    container.innerHTML = "";
+
+    const dagen = ["ma", "di", "wo", "do", "vr", "za", "zo"];
+    dagen.forEach(dag => {
+      const dayEl = document.createElement("div");
+      dayEl.className = "calendar-day-header";
+      dayEl.textContent = dag;
+      container.appendChild(dayEl);
+    });
+
+    for (let i = 0; i < firstDay; i++) {
+      const empty = document.createElement("div");
+      empty.className = "calendar-day empty";
+      container.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const fullDate = new Date(year, month, d).toISOString().split("T")[0];
+      const reservatie = isGereserveerd(fullDate);
+
+      const day = document.createElement("div");
+      day.className = "calendar-day";
+      if (reservatie) {
+        day.classList.add("gereserveerd");
+        day.innerHTML = `<div class="date">${d}</div><div class="reservering">Gereserveerd (${reservatie.naam})</div>`;
+      } else {
+        day.innerHTML = `<div class="date">${d}</div><div class="price">€${prijs}</div>`;
+      }
+
+      container.appendChild(day);
+    }
+  }
+
+  function prevMonth() {
+    currentMonth--;
+    if (currentMonth < 0) {
+      currentMonth = 11;
+      currentYear--;
+    }
+    renderCalendar(currentMonth, currentYear);
+  }
+
+  function nextMonth() {
+    currentMonth++;
+    if (currentMonth > 11) {
+      currentMonth = 0;
+      currentYear++;
+    }
+    renderCalendar(currentMonth, currentYear);
+  }
+
+  renderCalendar(currentMonth, currentYear);
+</script>
 
 </html>
