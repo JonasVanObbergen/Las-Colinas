@@ -247,66 +247,59 @@
       margin-top: 0.2rem;
     }
 
-    @media (max-width: 768px) {
-      header {
-        padding: 40px 10px;
-        background-position: center center;
-      }
+/* Media query for small mobile screens like iPhone SE */
+@media screen and (max-width: 375px) {
+  /* Prevent body from scrolling */
+  body {
+    overflow: hidden; /* Disable body scrolling */
+  }
 
-      header h1 {
-        font-size: 1.5rem;
-      }
+  .calendar-container {
+    height: 100vh; /* Make the container take full screen height */
+    overflow: hidden; /* Prevent body from scrolling */
+  }
 
-      header p {
-        font-size: 1rem;
-      }
+  /* Make the calendar grid scrollable */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 columns for each day */
+    gap: 3px; /* Reduce gap between cells */
+    width: 100%;
+    height: calc(100vh - 150px); /* Adjust the height of the calendar grid */
+    overflow-y: auto; /* Enable vertical scrolling */
+    box-sizing: border-box;
+  }
 
-      section {
-        padding: 10px;
-      }
+  /* Ensure the day header is properly aligned and readable */
+  .calendar-day-header {
+    font-size: 10px; /* Smaller text for header */
+    padding: 3px;
+    text-align: center;
+    height: 25px;
+  }
 
-      .grid {
-        grid-template-columns: 1fr;
-        /* Stapelt de twee kolommen onder elkaar */
-      }
+  .calendar-day {
+    font-size: 12px; /* Adjust text size for day cells */
+    padding: 5px;
+    text-align: center;
+    height: 35px;  /* Minimum height for day cells */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
 
-      .calendar-controls {
-        flex-direction: column;
-        align-items: stretch;
-      }
+  /* Adjust calendar controls (month navigation buttons) */
+  .calendar-controls button {
+    font-size: 12px;
+    padding: 6px 8px; /* Adjust padding to fit smaller screens */
+    border-radius: 5px;
+  }
+}
 
-      .calendar-controls button {
-        font-size: 1rem;
-        padding: 0.5rem;
-      }
-
-      .calendar-day {
-        min-height: 50px;
-        padding: 0.3rem;
-      }
-
-      .calendar-day .date {
-        font-size: 0.9rem;
-      }
-
-      .calendar-day .price {
-        font-size: 0.8rem;
-      }
-
-      .cta {
-        font-size: 16px;
-        padding: 10px;
-      }
-
-      .gallery {
-        grid-template-columns: 1fr;
-        /* Eén afbeelding per rij */
-      }
-
-      .gallery img {
-        height: auto;
-      }
-    }
   </style>
 </head>
 
