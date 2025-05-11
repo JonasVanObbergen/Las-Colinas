@@ -49,7 +49,7 @@
 
     section {
       padding: 20px;
-      max-width: 900px;
+      max-width: 916px;
       margin: auto;
     }
 
@@ -78,6 +78,7 @@
       padding: 10px;
       border-left: 5px solid #004d40;
       margin-bottom: 20px;
+      width: 100%;
     }
 
     footer {
@@ -247,60 +248,69 @@
       margin-top: 0.2rem;
     }
 
-/* Media query for small mobile screens like iPhone SE */
-@media screen and (max-width: 375px) {
-  .calendar-container {
-    height: 100vh; /* Make the container take full screen height */
-    overflow: hidden; /* Prevent body from scrolling */
-  }
+    /* Media query for small mobile screens like iPhone SE */
+    @media screen and (max-width: 375px) {
+      .calendar-container {
+        height: 100vh;
+        /* Make the container take full screen height */
+        overflow: hidden;
+        /* Prevent body from scrolling */
+      }
 
-  /* Make the calendar grid scrollable */
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr); /* 7 columns for each day */
-    gap: 3px; /* Reduce gap between cells */
-    width: 100%;
-    height: calc(100vh - 150px); /* Adjust the height of the calendar grid */
-    overflow-y: auto; /* Enable vertical scrolling */
-    box-sizing: border-box;
-  }
+      /* Make the calendar grid scrollable */
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        /* 7 columns for each day */
+        gap: 3px;
+        /* Reduce gap between cells */
+        width: 100%;
+        height: calc(100vh - 150px);
+        /* Adjust the height of the calendar grid */
+        overflow-y: auto;
+        /* Enable vertical scrolling */
+        box-sizing: border-box;
+      }
 
-  /* Ensure the day header is properly aligned and readable */
-  .calendar-day-header {
-    font-size: 10px; /* Smaller text for header */
-    padding: 3px;
-    text-align: center;
-    height: 25px;
-  }
+      /* Ensure the day header is properly aligned and readable */
+      .calendar-day-header {
+        font-size: 10px;
+        /* Smaller text for header */
+        padding: 3px;
+        text-align: center;
+        height: 25px;
+      }
 
-  .calendar-day {
-    font-size: 12px; /* Adjust text size for day cells */
-    padding: 5px;
-    text-align: center;
-    height: 35px;  /* Minimum height for day cells */
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-  }
+      .calendar-day {
+        font-size: 12px;
+        /* Adjust text size for day cells */
+        padding: 5px;
+        text-align: center;
+        height: 35px;
+        /* Minimum height for day cells */
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
 
-  /* Adjust calendar controls (month navigation buttons) */
-  .calendar-controls button {
-    font-size: 12px;
-    padding: 6px 8px; /* Adjust padding to fit smaller screens */
-    border-radius: 5px;
-  }
-}
-
+      /* Adjust calendar controls (month navigation buttons) */
+      .calendar-controls button {
+        font-size: 12px;
+        padding: 6px 8px;
+        /* Adjust padding to fit smaller screens */
+        border-radius: 5px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <header>
-    <h1>Luxe Villa voor 6 Personen met Uitzicht op de Golfbanen van Las Colinas</h1>
+    <h1>Madroño - Circonia 7 - Luxe Villa voor 6 Personen met Uitzicht op de Golfbanen van Las Colinas</h1>
     <p>Geniet van luxe, privacy en rust aan de Costa Blanca</p>
   </header>
 
@@ -321,6 +331,7 @@
       <li>Verduisterende zonnewering + buitenrolluiken</li>
       <li>Haardroger aanwezig</li>
       <li>Handdoekenset is optioneel</li>
+      <li>Kinderbed beschikbaar</li>
     </ul>
 
     <h2>Badkamers & Toiletten</h2>
@@ -356,9 +367,10 @@
     <ul>
       <li>Privézwembad van +/- 50 m²</li>
       <li>Zonneterrassen en loungehoek</li>
-      <li>Eettafel met 8 stoelen, 2 ligbedden en parasol</li>
+      <li>Eettafel met 8 stoelen, 4 ligbedden en parasol</li>
       <li>Green Egg BBQ</li>
       <li>Private tuin met lokale beplanting</li>
+      <li>Buitenkeuken met green egg</li>
     </ul>
 
     <h2>Entertainmentruimte</h2>
@@ -405,9 +417,6 @@
       </div>
     </div>
 
-    <div class="highlight">
-      <strong>Ligging:</strong> Slechts 45 minuten van luchthaven Alicante
-    </div>
 
     <div id="lightbox" class="lightbox hidden">
       <span class="close">&times;</span>
@@ -428,9 +437,18 @@
       <li><em>Verhuur vanaf minstens 6 nachten</em></li>
     </ul>
 
-    <div class="cta">
-      📩 Interesse? <a href="#">Neem contact op voor beschikbaarheden of meer informatie!</a>
+    <h2>Locatie - adres</h2>
+    <p>Alicante, Spain - Av. de las Colinas</p>
+    <p>Puerta, n°7 Residencial Las Colinas golf resort 03189 Orihuela-Costa</p>
+
+    <div class="highlight">
+      <strong>Ligging:</strong> Slechts 45 minuten van luchthaven Alicante
     </div>
+
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25830.39445148244!2d-0.8272070505595613!3d37.92994495273939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd63097707e03dab%3A0xa9bb1dff63e3656c!2sAv.%20de%20las%20Colinas%2C%20Alicante%2C%20Spain!5e1!3m2!1sen!2sbe!4v1746986051531!5m2!1sen!2sbe"
+      width="940" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
   </section>
 
   <section>
@@ -443,6 +461,7 @@
       <!-- Inhoud wordt met JS gegenereerd -->
     </div>
   </section>
+
 
   <footer>
     <p>&copy; 2025 Luxe Villa Las Colinas. Alle rechten voorbehouden.</p>
